@@ -383,25 +383,63 @@ function initNavScroll() {
     });
 }
 
-// --- Contact Form Submission ---
+// --- Contact Form Submission via EmailJS ---
 function initContactForm() {
+    // Initialize EmailJS with your Public Key
+    emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
+
     const form = document.querySelector("#contact-form");
-    if (!form) return;
+    const submitBtn = document.querySelector("#contact-submit");
+    if (!form || !submitBtn) return;
 
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
+        // Show loading state on button
+        const btnText = submitBtn.querySelector(".btn-text");
+        const originalText = btnText.textContent;
+        btnText.textContent = "SENDING...";
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = "0.7";
+
+        // Send via EmailJS — replace with your actual Service ID and Template ID
+        emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", form)
+            .then(() => {
+                // SUCCESS — show success toast
+                showToast(true);
+                form.reset();
+            })
+            .catch((error) => {
+                // FAILURE — show error toast
+                console.error("EmailJS error:", error);
+                showToast(false);
+            })
+            .finally(() => {
+                // Restore button state
+                btnText.textContent = originalText;
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = "1";
+            });
+    });
+
+    function showToast(success) {
         const toast = document.createElement("div");
         toast.className = "contact-success-toast";
-        toast.innerHTML = `
-            <div class="toast-content">
-                <i class="ri-checkbox-circle-fill"></i>
+        toast.innerHTML = success
+            ? `<div class="toast-content">
+                <i class="ri-checkbox-circle-fill" style="color:#5c8a00"></i>
                 <div class="toast-text">
                     <h4>Message Sent!</h4>
                     <p>We'll get back to you within 24 hours.</p>
                 </div>
-            </div>
-        `;
+               </div>`
+            : `<div class="toast-content">
+                <i class="ri-error-warning-fill" style="color:#e53935"></i>
+                <div class="toast-text">
+                    <h4>Sending Failed</h4>
+                    <p>Please try again or email us directly.</p>
+                </div>
+               </div>`;
         document.body.appendChild(toast);
 
         gsap.fromTo(toast,
@@ -415,10 +453,8 @@ function initContactForm() {
                 duration: 0.4, ease: "power3.in",
                 onComplete: () => toast.remove()
             });
-        }, 4000);
-
-        form.reset();
-    });
+        }, 5000);
+    }
 }
 
 // --- Nav Hide/Show on Scroll Direction ---
@@ -460,6 +496,47 @@ function initNavScrollDirection() {
         }
 
         lastScrollY = currentScrollY;
+    });
+}
+
+// --- Mobile Reveal on Scroll (Intersection Observer — Mobile Only) ---
+function initMobileReveal() {
+    // Only run on mobile/tablet viewports — desktop is completely unaffected
+    if (window.innerWidth > 768) return;
+
+    const revealTargets = document.querySelectorAll(
+        ".mob-reveal, .mob-reveal-left, .mob-reveal-stagger"
+    );
+
+    if (revealTargets.length === 0) return;
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                    // Unobserve after reveal so it only fires once
+                    observer.unobserve(entry.target);
+                }
+            });
+        },
+        {
+            threshold: 0.12,      // Trigger when 12% of element is visible
+            rootMargin: "0px 0px -40px 0px"  // Slight bottom offset for natural feel
+        }
+    );
+
+    revealTargets.forEach((el) => observer.observe(el));
+
+    // Re-check on resize (in case user rotates device)
+    window.addEventListener("resize", () => {
+        if (window.innerWidth <= 768) {
+            revealTargets.forEach((el) => {
+                if (!el.classList.contains("is-visible")) {
+                    observer.observe(el);
+                }
+            });
+        }
     });
 }
 
@@ -528,6 +605,7 @@ window.addEventListener("load", function () {
     initScrollAnimations();
     initContactForm();
     initViewAllWork();
+    initMobileReveal(); // Mobile-only reveal on scroll
 
     // Logo Click -> Scroll to top
     document.querySelector(".clay-logo").addEventListener("click", () => {
