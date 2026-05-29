@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api Calling | Website & App Development Agency</title>
+    <!-- Locomotive Scroll CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <!-- Google Fonts for similar typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600&family=Oswald:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css?v=37">
+
+</head>
+
+<body>
+    <!-- Custom Cursor -->
+    <div id="cursor">
+        <svg class="snake-cursor" viewBox="0 0 100 100">
+            <path class="snake-path" 
+                  d="M 85 50 Q 85 65 68 68 Q 65 85 50 85 Q 35 85 32 68 Q 15 65 15 50 Q 15 35 32 32 Q 35 15 50 15 Q 65 15 68 32 Q 85 35 85 50 Z" 
+                  pathLength="100" 
+                  stroke-width="5" 
+                  fill="none" 
+                  stroke-linecap="round" />
+        </svg>
+    </div>
+
+
+    <!-- Navigation -->
+    <nav id="nav" class="clay-nav">
+        <!-- Separate premium card for the logo, absolutely positioned so it doesn't affect other items' layout -->
+        <a href="#" class="nav-logo-card clay-logo">
+            <img src="ChatGPT Image May 28, 2026, 04_19_42 PM.png" alt="Bedrock Digital" class="nav-logo-img">
+        </a>
+        
+        <!-- Placeholder of the original logo to maintain exact flexbox layout and component positions -->
+        <div class="logo-placeholder"></div>
+
+        <div class="links">
+            <a href="#work">Work</a>
+            <a href="#barter-services">Services</a>
+            <a href="#about">About</a>
+        </div>
+        <div class="nav-right">
+            <a href="#contact" class="contact-btn">Contact</a>
+        </div>
+    </nav>
+
+    <div id="main" data-scroll-container>
+
+        <!-- Hero Section -->
+        <section id="hero" class="clay-hero" data-scroll data-scroll-speed="-0.5">
+            <div class="hero-content">
+                <h1 class="hero-title"><span id="typewriter"></span><span class="cursor-blink">|</span></h1>
+                <p class="hero-description">
+                    We build websites, apps, AI systems and brands<br>
+                    people actually remember.
+                </p>
+                <div class="hero-cta">
+                    <a href="#ready" class="btn-primary">Start a Project</a>
+                    <a href="#projects" class="btn-secondary">See Our Work</a>
+                </div>
+            </div>
+            <div class="hero-graphic">
+                <!-- From Uiverse.io by SelfMadeSystem --> 
+                <div class="container">
+                  <div class="cube-wrapper">
+                  <div class="cube" style="--x:-1;--y:-1;--z:-1;--fz:0"></div>
+                  <div class="cube" style="--x:-1;--y:-1;--z:-1;--fz:1"></div>
+                  <div class="cube" style="--x:-1;--y:-1;--z:-1;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:-1;--y:-1;--z:-1;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:-1;--y:-1;--z:-1;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:-1;--y:-1;--z:-1;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:-1;--y:-1;--z:0;--fz:0"></div>
+                  <div class="cube" style="--x:-1;--y:-1;--z:0;--fz:1"></div>
+                  <div class="cube" style="--x:-1;--y:-1;--z:0;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:-1;--y:-1;--z:0;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:-1;--y:-1;--z:0;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:-1;--y:-1;--z:0;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:-1;--y:-1;--z:1;--fz:0"></div>
+                  <div class="cube" style="--x:-1;--y:-1;--z:1;--fz:1"></div>
+                  <div class="cube" style="--x:-1;--y:-1;--z:1;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:-1;--y:-1;--z:1;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:-1;--y:-1;--z:1;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:-1;--y:-1;--z:1;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:-1;--y:0;--z:-1;--fz:0"></div>
+                  <div class="cube" style="--x:-1;--y:0;--z:-1;--fz:1"></div>
+                  <div class="cube" style="--x:-1;--y:0;--z:-1;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:-1;--y:0;--z:-1;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:-1;--y:0;--z:-1;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:-1;--y:0;--z:-1;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:-1;--y:0;--z:0;--fz:0"></div>
+                  <div class="cube" style="--x:-1;--y:0;--z:0;--fz:1"></div>
+                  <div class="cube" style="--x:-1;--y:0;--z:0;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:-1;--y:0;--z:0;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:-1;--y:0;--z:0;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:-1;--y:0;--z:0;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:-1;--y:0;--z:1;--fz:0"></div>
+                  <div class="cube" style="--x:-1;--y:0;--z:1;--fz:1"></div>
+                  <div class="cube" style="--x:-1;--y:0;--z:1;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:-1;--y:0;--z:1;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:-1;--y:0;--z:1;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:-1;--y:0;--z:1;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:-1;--y:1;--z:-1;--fz:0"></div>
+                  <div class="cube" style="--x:-1;--y:1;--z:-1;--fz:1"></div>
+                  <div class="cube" style="--x:-1;--y:1;--z:-1;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:-1;--y:1;--z:-1;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:-1;--y:1;--z:-1;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:-1;--y:1;--z:-1;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:-1;--y:1;--z:0;--fz:0"></div>
+                  <div class="cube" style="--x:-1;--y:1;--z:0;--fz:1"></div>
+                  <div class="cube" style="--x:-1;--y:1;--z:0;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:-1;--y:1;--z:0;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:-1;--y:1;--z:0;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:-1;--y:1;--z:0;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:-1;--y:1;--z:1;--fz:0"></div>
+                  <div class="cube" style="--x:-1;--y:1;--z:1;--fz:1"></div>
+                  <div class="cube" style="--x:-1;--y:1;--z:1;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:-1;--y:1;--z:1;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:-1;--y:1;--z:1;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:-1;--y:1;--z:1;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:0;--y:-1;--z:-1;--fz:0"></div>
+                  <div class="cube" style="--x:0;--y:-1;--z:-1;--fz:1"></div>
+                  <div class="cube" style="--x:0;--y:-1;--z:-1;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:0;--y:-1;--z:-1;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:0;--y:-1;--z:-1;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:0;--y:-1;--z:-1;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:0;--y:-1;--z:0;--fz:0"></div>
+                  <div class="cube" style="--x:0;--y:-1;--z:0;--fz:1"></div>
+                  <div class="cube" style="--x:0;--y:-1;--z:0;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:0;--y:-1;--z:0;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:0;--y:-1;--z:0;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:0;--y:-1;--z:0;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:0;--y:-1;--z:1;--fz:0"></div>
+                  <div class="cube" style="--x:0;--y:-1;--z:1;--fz:1"></div>
+                  <div class="cube" style="--x:0;--y:-1;--z:1;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:0;--y:-1;--z:1;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:0;--y:-1;--z:1;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:0;--y:-1;--z:1;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:0;--y:0;--z:-1;--fz:0"></div>
+                  <div class="cube" style="--x:0;--y:0;--z:-1;--fz:1"></div>
+                  <div class="cube" style="--x:0;--y:0;--z:-1;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:0;--y:0;--z:-1;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:0;--y:0;--z:-1;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:0;--y:0;--z:-1;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:0;--y:0;--z:0;--fz:0"></div>
+                  <div class="cube" style="--x:0;--y:0;--z:0;--fz:1"></div>
+                  <div class="cube" style="--x:0;--y:0;--z:0;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:0;--y:0;--z:0;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:0;--y:0;--z:0;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:0;--y:0;--z:0;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:0;--y:0;--z:1;--fz:0"></div>
+                  <div class="cube" style="--x:0;--y:0;--z:1;--fz:1"></div>
+                  <div class="cube" style="--x:0;--y:0;--z:1;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:0;--y:0;--z:1;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:0;--y:0;--z:1;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:0;--y:0;--z:1;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:0;--y:1;--z:-1;--fz:0"></div>
+                  <div class="cube" style="--x:0;--y:1;--z:-1;--fz:1"></div>
+                  <div class="cube" style="--x:0;--y:1;--z:-1;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:0;--y:1;--z:-1;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:0;--y:1;--z:-1;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:0;--y:1;--z:-1;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:0;--y:1;--z:0;--fz:0"></div>
+                  <div class="cube" style="--x:0;--y:1;--z:0;--fz:1"></div>
+                  <div class="cube" style="--x:0;--y:1;--z:0;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:0;--y:1;--z:0;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:0;--y:1;--z:0;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:0;--y:1;--z:0;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:0;--y:1;--z:1;--fz:0"></div>
+                  <div class="cube" style="--x:0;--y:1;--z:1;--fz:1"></div>
+                  <div class="cube" style="--x:0;--y:1;--z:1;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:0;--y:1;--z:1;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:0;--y:1;--z:1;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:0;--y:1;--z:1;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:1;--y:-1;--z:-1;--fz:0"></div>
+                  <div class="cube" style="--x:1;--y:-1;--z:-1;--fz:1"></div>
+                  <div class="cube" style="--x:1;--y:-1;--z:-1;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:1;--y:-1;--z:-1;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:1;--y:-1;--z:-1;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:1;--y:-1;--z:-1;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:1;--y:-1;--z:0;--fz:0"></div>
+                  <div class="cube" style="--x:1;--y:-1;--z:0;--fz:1"></div>
+                  <div class="cube" style="--x:1;--y:-1;--z:0;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:1;--y:-1;--z:0;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:1;--y:-1;--z:0;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:1;--y:-1;--z:0;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:1;--y:-1;--z:1;--fz:0"></div>
+                  <div class="cube" style="--x:1;--y:-1;--z:1;--fz:1"></div>
+                  <div class="cube" style="--x:1;--y:-1;--z:1;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:1;--y:-1;--z:1;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:1;--y:-1;--z:1;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:1;--y:-1;--z:1;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:1;--y:0;--z:-1;--fz:0"></div>
+                  <div class="cube" style="--x:1;--y:0;--z:-1;--fz:1"></div>
+                  <div class="cube" style="--x:1;--y:0;--z:-1;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:1;--y:0;--z:-1;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:1;--y:0;--z:-1;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:1;--y:0;--z:-1;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:1;--y:0;--z:0;--fz:0"></div>
+                  <div class="cube" style="--x:1;--y:0;--z:0;--fz:1"></div>
+                  <div class="cube" style="--x:1;--y:0;--z:0;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:1;--y:0;--z:0;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:1;--y:0;--z:0;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:1;--y:0;--z:0;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:1;--y:0;--z:1;--fz:0"></div>
+                  <div class="cube" style="--x:1;--y:0;--z:1;--fz:1"></div>
+                  <div class="cube" style="--x:1;--y:0;--z:1;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:1;--y:0;--z:1;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:1;--y:0;--z:1;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:1;--y:0;--z:1;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:1;--y:1;--z:-1;--fz:0"></div>
+                  <div class="cube" style="--x:1;--y:1;--z:-1;--fz:1"></div>
+                  <div class="cube" style="--x:1;--y:1;--z:-1;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:1;--y:1;--z:-1;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:1;--y:1;--z:-1;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:1;--y:1;--z:-1;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:1;--y:1;--z:0;--fz:0"></div>
+                  <div class="cube" style="--x:1;--y:1;--z:0;--fz:1"></div>
+                  <div class="cube" style="--x:1;--y:1;--z:0;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:1;--y:1;--z:0;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:1;--y:1;--z:0;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:1;--y:1;--z:0;--ry:1;--fy:1"></div>
+                  <div class="cube" style="--x:1;--y:1;--z:1;--fz:0"></div>
+                  <div class="cube" style="--x:1;--y:1;--z:1;--fz:1"></div>
+                  <div class="cube" style="--x:1;--y:1;--z:1;--rx:1;--fx:-1"></div>
+                  <div class="cube" style="--x:1;--y:1;--z:1;--rx:1;--fx:1"></div>
+                  <div class="cube" style="--x:1;--y:1;--z:1;--ry:1;--fy:-1"></div>
+                  <div class="cube" style="--x:1;--y:1;--z:1;--ry:1;--fy:1"></div>
+                  </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" data-scroll>
+            <div class="about-centered">
+                <p class="section-kicker">ABOUT US</p>
+                <h2>Bedrock Digital builds modern websites, apps, AI systems and digital experiences for brands that want to stand out online.</h2>
+            </div>
+        </section>
+
+        <!-- Why Barter Section -->
+        <section id="why-barter" data-scroll>
+            <div class="why-header">
+                <h1>WHY US?</h1>
+            </div>
+            <div class="why-grid">
+                <div class="why-item">
+                    <div class="why-num">01</div>
+                    <h3>Scalable Architecture</h3>
+                    <p>Build systems that grow with your business, ensuring long-term performance and reliability under heavy loads.</p>
+                </div>
+                <div class="why-item">
+                    <div class="why-num">02</div>
+                    <h3>User-Centric Design</h3>
+                    <p>We craft intuitive interfaces that enhance user engagement and deliver exceptional digital experiences across all devices.</p>
+                </div>
+                <div class="why-item">
+                    <div class="why-num">03</div>
+                    <h3>Cutting-Edge Tech</h3>
+                    <p>Utilizing the latest frameworks like React, Next.js, and Node.js to build secure, modern, and high-performing applications.</p>
+                </div>
+                <div class="why-item">
+                    <div class="why-num">04</div>
+                    <h3>Agile Methodology</h3>
+                    <p>Iterative development process ensuring transparency, rapid delivery, and perfect alignment with your business goals.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="barter-services" data-scroll>
+            <div class="nsv-wrapper">
+                <div class="nsv-header">
+                    <span class="nsv-badge">DIGITAL EXCELLENCE</span>
+                    <h2 class="nsv-title">OUR SERVICES</h2>
+                    <p class="nsv-subtitle">We craft powerful digital solutions that drive growth, elevate your brand, and keep you ahead of the competition.</p>
+                </div>
+                <div class="nsv-grid">
+                    <!-- Card 1: Web Development -->
+                    <div class="nsv-card">
+                        <div class="nsv-card-top">
+                            <div class="nsv-card-icon">
+                                <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="4" y="10" width="52" height="38" rx="4" stroke="#5d33b0" stroke-width="2"/>
+                                    <path d="M4 20h52" stroke="#5d33b0" stroke-width="2"/>
+                                    <circle cx="12" cy="15" r="2" fill="#5d33b0"/>
+                                    <circle cx="20" cy="15" r="2" fill="#5d33b0"/>
+                                    <circle cx="28" cy="15" r="2" fill="#5d33b0"/>
+                                    <path d="M20 34l-8-6 8-6" stroke="#5d33b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M40 34l8-6-8-6" stroke="#5d33b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M33 26l-6 12" stroke="#5d33b0" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="nsv-card-num">01</div>
+                        </div>
+                        <div class="nsv-card-body">
+                            <h3 class="nsv-card-title">Web Development</h3>
+                            <p class="nsv-card-desc">Custom-built websites with fluid interactions, blazing speed, and bold design. Built on modern stacks for brands that demand excellence.</p>
+                        </div>
+                        <div class="nsv-card-accent"></div>
+                    </div>
+                    <!-- Card 2: Digital Marketing -->
+                    <div class="nsv-card">
+                        <div class="nsv-card-top">
+                            <div class="nsv-card-icon">
+                                <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="30" cy="30" r="22" stroke="#7c4fd4" stroke-width="2" stroke-dasharray="5 4"/>
+                                    <circle cx="30" cy="30" r="12" stroke="#7c4fd4" stroke-width="2"/>
+                                    <circle cx="30" cy="30" r="4" fill="#7c4fd4"/>
+                                    <path d="M30 8V4" stroke="#7c4fd4" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M52 30h4" stroke="#7c4fd4" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M8 30H4" stroke="#7c4fd4" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M30 52v4" stroke="#7c4fd4" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="nsv-card-num">02</div>
+                        </div>
+                        <div class="nsv-card-body">
+                            <h3 class="nsv-card-title">Digital Marketing</h3>
+                            <p class="nsv-card-desc">Targeted campaigns across every channel that grow your audience, drive conversions, and build a brand people remember and trust.</p>
+                        </div>
+                        <div class="nsv-card-accent"></div>
+                    </div>
+                    <!-- Card 3: Agent Development -->
+                    <div class="nsv-card">
+                        <div class="nsv-card-top">
+                            <div class="nsv-card-icon">
+                                <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="10" y="20" width="40" height="28" rx="5" stroke="#5d33b0" stroke-width="2"/>
+                                    <path d="M30 20V12" stroke="#5d33b0" stroke-width="2" stroke-linecap="round"/>
+                                    <circle cx="30" cy="10" r="3" stroke="#5d33b0" stroke-width="2"/>
+                                    <circle cx="22" cy="34" r="3.5" fill="#5d33b0"/>
+                                    <circle cx="38" cy="34" r="3.5" fill="#5d33b0"/>
+                                    <path d="M20 48v4" stroke="#131312" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M40 48v4" stroke="#131312" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M4 30h6" stroke="#131312" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M50 30h6" stroke="#131312" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="nsv-card-num">03</div>
+                        </div>
+                        <div class="nsv-card-body">
+                            <h3 class="nsv-card-title">Agent Development</h3>
+                            <p class="nsv-card-desc">Autonomous AI agents and LLM-powered systems that automate complex workflows, enhance decisions, and scale your business intelligence.</p>
+                        </div>
+                        <div class="nsv-card-accent"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Campaigns Section -->
+        <section id="projects" data-scroll>
+            <div class="projects-header">
+                <h2>OUR WORK</h2>
+            </div>
+
+            <div class="project-rows-container">
+                <!-- Project 1 -->
+                <div class="project-card-row" data-url="https://www.thegourmetfoodatlas.com/">
+                    <div class="project-card-img">
+                        <img src="imagesourwork/ourwork1.png" alt="The Gourmet Food Atlas">
+                    </div>
+                    <div class="project-card-info">
+                        <span class="project-num">01</span>
+                        <h3 class="project-title">The Gourmet Food Atlas</h3>
+                        <p class="project-desc">A premium culinary portal and e-commerce experience designed for food connoisseurs, showcasing gourmet delicacies from across the globe.</p>
+                        <div class="tags">
+                            <span class="tag">CULINARY PORTAL</span>
+                            <span class="tag">E-COMMERCE</span>
+                        </div>
+                        <a href="https://www.thegourmetfoodatlas.com/" target="_blank" class="project-btn-link">Visit Website <i class="ri-arrow-right-up-line"></i></a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card-row" data-url="https://www.astonhighschool.org/">
+                    <div class="project-card-img">
+                        <img src="imagesourwork/ourwork2.png" alt="Aston Hostel & College">
+                    </div>
+                    <div class="project-card-info">
+                        <span class="project-num">02</span>
+                        <h3 class="project-title">Aston Hostel & College</h3>
+                        <p class="project-desc">An institutional educational platform developed to manage and streamline college activities, courses, and student accommodation portals.</p>
+                        <div class="tags">
+                            <span class="tag">EDUCATIONAL PLATFORM</span>
+                            <span class="tag">INSTITUTIONAL WEB</span>
+                        </div>
+                        <a href="https://www.astonhighschool.org/" target="_blank" class="project-btn-link">Visit Website <i class="ri-arrow-right-up-line"></i></a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card-row" data-url="https://www.dighekulkarni.com/">
+                    <div class="project-card-img">
+                        <img src="imagesourwork/ourwork3.png" alt="Dighe Kulkarni">
+                    </div>
+                    <div class="project-card-info">
+                        <span class="project-num">03</span>
+                        <h3 class="project-title">Dighe Kulkarni</h3>
+                        <p class="project-desc">A high-end professional consultancy website presenting specialized services, legal consulting, corporate advisory, and partner profiles.</p>
+                        <div class="tags">
+                            <span class="tag">PROFESSIONAL SERVICES</span>
+                            <span class="tag">CONSULTANCY</span>
+                        </div>
+                        <a href="https://www.dighekulkarni.com/" target="_blank" class="project-btn-link">Visit Website <i class="ri-arrow-right-up-line"></i></a>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card-row" data-url="https://www.xpandventures.in/">
+                    <div class="project-card-img">
+                        <img src="imagesourwork/ourwork4.png" alt="Xpand Ventures">
+                    </div>
+                    <div class="project-card-info">
+                        <span class="project-num">04</span>
+                        <h3 class="project-title">Xpand Ventures</h3>
+                        <p class="project-desc">A venture capital and investment portfolio platform highlighting strategic funding, investment paths, and portfolio success stories.</p>
+                        <div class="tags">
+                            <span class="tag">VENTURE CAPITAL</span>
+                            <span class="tag">PORTFOLIO SITE</span>
+                        </div>
+                        <a href="https://www.xpandventures.in/" target="_blank" class="project-btn-link">Visit Website <i class="ri-arrow-right-up-line"></i></a>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-card-row" data-url="https://agent-intern.onrender.com/">
+                    <div class="project-card-img">
+                        <img src="imagesourwork/ourwork5.png" alt="Jojo AI">
+                    </div>
+                    <div class="project-card-info">
+                        <span class="project-num">05</span>
+                        <h3 class="project-title">Jojo AI</h3>
+                        <p class="project-desc">An advanced agentic AI platform displaying smart virtual interns, custom LLM agents, and automation tools designed to optimize business tasks.</p>
+                        <div class="tags">
+                            <span class="tag">AI INTERN</span>
+                            <span class="tag">AGENTIC WORKFLOW</span>
+                        </div>
+                        <a href="https://agent-intern.onrender.com/" target="_blank" class="project-btn-link">Visit Website <i class="ri-arrow-right-up-line"></i></a>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="project-card-row" data-url="https://invento-espirit-wp8m.vercel.app/">
+                    <div class="project-card-img">
+                        <img src="imagesourwork/ourwork6.png" alt="Innvento (AI)">
+                    </div>
+                    <div class="project-card-info">
+                        <span class="project-num">06</span>
+                        <h3 class="project-title">Innvento (AI)</h3>
+                        <p class="project-desc">An innovative Web3 landing page showcasing AI integrations, decentralized applications, and next-generation autonomous software ecosystems.</p>
+                        <div class="tags">
+                            <span class="tag">AI INNOVATION</span>
+                            <span class="tag">WEB 3.0</span>
+                        </div>
+                        <a href="https://invento-espirit-wp8m.vercel.app/" target="_blank" class="project-btn-link">Visit Website <i class="ri-arrow-right-up-line"></i></a>
+                    </div>
+                </div>
+
+                <!-- Project 7 -->
+                <div class="project-card-row" data-url="https://siddhivinayakcarcare.com/">
+                    <div class="project-card-img">
+                        <img src="imagesourwork/ourwork7.png" alt="Siddhivinayak Car Care">
+                    </div>
+                    <div class="project-card-info">
+                        <span class="project-num">07</span>
+                        <h3 class="project-title">Siddhivinayak Car Care</h3>
+                        <p class="project-desc">A professional automotive service platform designed for car repairing, periodic maintenance, vehicle diagnostics, and easy detailing booking services.</p>
+                        <div class="tags">
+                            <span class="tag">CAR REPAIR</span>
+                            <span class="tag">AUTO SERVICES</span>
+                        </div>
+                        <a href="https://siddhivinayakcarcare.com/" target="_blank" class="project-btn-link">Visit Website <i class="ri-arrow-right-up-line"></i></a>
+                    </div>
+                </div>
+
+                <!-- Project 8 -->
+                <div class="project-card-row" data-url="https://amoreventz.com/">
+                    <div class="project-card-img">
+                        <img src="imagesourwork/ourwork8.png" alt="Amor Eventz">
+                    </div>
+                    <div class="project-card-info">
+                        <span class="project-num">08</span>
+                        <h3 class="project-title">Amor Eventz</h3>
+                        <p class="project-desc">Amor Eventz is a full-service event management company established in 2025, born out of a passion for creating unforgettable celebrations filled with love, elegance, and seamless execution.</p>
+                        <div class="tags">
+                            <span class="tag">EVENT MANAGEMENT</span>
+                            <span class="tag">CELEBRATIONS</span>
+                        </div>
+                        <a href="https://amoreventz.com/" target="_blank" class="project-btn-link">Visit Website <i class="ri-arrow-right-up-line"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="view-all-container">
+                <button class="view-all-btn">VIEW ALL WORK <div class="dot"></div></button>
+            </div>
+        </section>
+
+
+        <!-- Ready To Start Section -->
+        <section id="ready" data-scroll data-scroll-speed="-0.1">
+            <div class="ready-text">
+                <h1 class="first-line">
+                    <div class="eye">
+                        <div class="pupil">
+                            <div class="line">
+                                <div class="pupil-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                    WANT TO
+                    <div class="eye">
+                        <div class="pupil">
+                            <div class="line">
+                                <div class="pupil-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </h1>
+                <h1>REACH US?</h1>
+            </div>
+
+            <div class="ready-btn-container">
+                <button class="start-btn">START THE PROJECT <div class="dot"></div></button>
+            </div>
+        </section>
+
+        <!-- Contact Us Section -->
+        <section id="contact" data-scroll>
+            <!-- Background decorative orbs -->
+            <div class="contact-orb contact-orb-1"></div>
+            <div class="contact-orb contact-orb-2"></div>
+
+            <div class="contact-inner">
+                <!-- Top bar -->
+                <div class="contact-top-bar">
+                    <span class="contact-eyebrow">// GET IN TOUCH</span>
+                    <p class="contact-top-desc">Have a project in mind? Let's build something incredible together.</p>
+                </div>
+
+                <div class="contact-body">
+                    <!-- Left Column -->
+                    <div class="contact-left">
+                        <h2 class="contact-heading">LET'S START<br>A PROJECT<br>TOGETHER</h2>
+
+                        <div class="contact-details">
+                            <div class="contact-detail-item">
+                                <span class="detail-label">SEND A MESSAGE</span>
+                                <a href="mailto:hello@bedrockdigital.agency" class="detail-link">hello@bedrockdigital.agency</a>
+                            </div>
+                            <div class="contact-detail-item">
+                                <span class="detail-label">CALL US DIRECTLY</span>
+                                <a href="tel:+1234567890" class="detail-link">+1 (234) 567-890</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-socials">
+                            <span class="detail-label">FOLLOW US</span>
+                            <div class="contact-social-links">
+                                <a href="#" class="contact-social-btn" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+                                <a href="#" class="contact-social-btn" aria-label="LinkedIn"><i class="ri-linkedin-line"></i></a>
+                                <a href="#" class="contact-social-btn" aria-label="Twitter / X"><i class="ri-twitter-x-line"></i></a>
+                                <a href="#" class="contact-social-btn" aria-label="Behance"><i class="ri-behance-line"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column — Form -->
+                    <div class="contact-right">
+                        <form class="contact-form" id="contact-form" autocomplete="off">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" id="contact-name" class="form-input" placeholder=" " required>
+                                    <label for="contact-name" class="form-label">YOUR NAME</label>
+                                    <div class="form-line"></div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" id="contact-number" class="form-input" placeholder=" " required>
+                                    <label for="contact-number" class="form-label">PHONE NUMBER</label>
+                                    <div class="form-line"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="email" id="contact-email" class="form-input" placeholder=" " required>
+                                <label for="contact-email" class="form-label">YOUR EMAIL ADDRESS</label>
+                                <div class="form-line"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <textarea id="contact-message" class="form-input form-textarea" placeholder=" " required rows="5"></textarea>
+                                <label for="contact-message" class="form-label">TELL US ABOUT YOUR PROJECT</label>
+                                <div class="form-line"></div>
+                            </div>
+
+                            <div class="form-btn-container">
+                                <button type="submit" class="contact-submit-btn" id="contact-submit">
+                                    <span class="btn-text">SEND MESSAGE</span>
+                                    <div class="btn-arrow"><i class="ri-arrow-right-up-line"></i></div>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Section -->
+        <div id="footer-wrapper" class="footer-wrapper">
+            <footer id="footer">
+                <!-- Giant Heading Split -->
+                <div class="footer-giant-title-split">
+                    <span class="word-left">Bedrock</span>
+                    <span class="word-right">Digital</span>
+                </div>
+
+                <!-- Bottom bar -->
+                <div class="footer-bottom-bar">
+                    <div class="footer-bottom-left">
+                        <img src="ChatGPT Image May 28, 2026, 04_19_42 PM.png" alt="Bedrock Digital" class="footer-logo-img">
+                    </div>
+                    <div class="footer-bottom-right">
+                        <a href="#">About Bedrock</a>
+                        <a href="#">Our Work</a>
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+    </div>
+
+    <!-- GSAP & Locomotive Scroll -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+
+    <!-- Main JS -->
+    <script src="script.js?v=20"></script>
+</body>
+
+</html>
