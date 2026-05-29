@@ -415,6 +415,15 @@ body {
     font-weight: 400;
 }
 
+.projects-subtitle {
+    font-size: clamp(0.95rem, 1.2vw, 1.25rem);
+    color: #666;
+    max-width: 680px;
+    margin-top: 1.5vw;
+    line-height: 1.6;
+    font-weight: 300;
+}
+
 .project-rows-container {
     display: flex;
     flex-direction: column;
@@ -2125,6 +2134,12 @@ body {
 
     .projects-header h2 {
         font-size: 6vw !important;
+    }
+
+    .projects-subtitle {
+        font-size: 4vw !important;
+        margin-top: 3vw !important;
+        line-height: 1.5 !important;
     }
 
     .project-card-row {
