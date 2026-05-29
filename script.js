@@ -4,15 +4,15 @@ gsap.registerPlugin(ScrollTrigger);
 const locoScroll = new LocomotiveScroll({
     el: document.querySelector("#main"),
     smooth: true,
-    multiplier: 0.4, // Slightly slower for a more premium feel
+    multiplier: 0.6, // Balanced premium smooth scroll speed
     lerp: 0.07,
     smartphone: {
         smooth: true,
-        multiplier: 0.4
+        multiplier: 0.6
     },
     tablet: {
         smooth: true,
-        multiplier: 0.4
+        multiplier: 0.6
     }
 });
 
@@ -298,22 +298,52 @@ function initHeroSlider() {
 
 
 // --- Eye Tracking Logic ---
-function initEyeTracking() {
-    window.addEventListener("mousemove", (e) => {
-        let mouseX = e.clientX;
-        let mouseY = e.clientY;
+let eyesCached = [];
 
-        document.querySelectorAll(".eye .line").forEach(line => {
-            // Get eye center to be more precise
-            const rect = line.closest('.eye').getBoundingClientRect();
-            const eyeX = rect.left + rect.width / 2;
-            const eyeY = rect.top + rect.height / 2;
+function updateEyeCoordinates() {
+    if (!locoScroll || !locoScroll.scroll) return;
+    eyesCached = [];
+    const eyes = document.querySelectorAll(".eye");
+    const scrollY = locoScroll.scroll.instance.scroll.y || 0;
+    
+    eyes.forEach(eye => {
+        const line = eye.querySelector(".line");
+        if (line) {
+            const rect = eye.getBoundingClientRect();
+            eyesCached.push({
+                line: line,
+                x: rect.left + rect.width / 2,
+                y: rect.top + rect.height / 2 + scrollY
+            });
+        }
+    });
+}
+
+function initEyeTracking() {
+    // Calculate coordinates after a short delay so preloader/layout settles
+    setTimeout(updateEyeCoordinates, 800);
+
+    // Update coordinates on resize
+    window.addEventListener("resize", updateEyeCoordinates);
+
+    // Update coordinates on ScrollTrigger refreshes (e.g. dynamic layout changes)
+    ScrollTrigger.addEventListener("refresh", updateEyeCoordinates);
+
+    window.addEventListener("mousemove", (e) => {
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        const scrollY = locoScroll && locoScroll.scroll ? (locoScroll.scroll.instance.scroll.y || 0) : 0;
+
+        eyesCached.forEach(eye => {
+            // Get relative viewport Y by subtracting the current scroll value from cached absolute page Y
+            const eyeX = eye.x;
+            const eyeY = eye.y - scrollY;
 
             const dX = mouseX - eyeX;
             const dY = mouseY - eyeY;
             const eyeAngle = Math.atan2(dY, dX) * (180 / Math.PI);
 
-            gsap.to(line, {
+            gsap.to(eye.line, {
                 rotate: eyeAngle - 180,
                 duration: 0.2,
                 ease: "power2.out"
@@ -395,25 +425,88 @@ function initContactForm() {
 function initNavScrollDirection() {
     const nav = document.querySelector("#nav");
     let lastScrollY = 0;
+    let isNavHidden = false;
 
     locoScroll.on("scroll", (instance) => {
         const currentScrollY = instance.scroll.y;
 
+        // Toggle 'scrolled' class to enable premium frosted glass transition
+        if (currentScrollY > 50) {
+            nav.classList.add("scrolled");
+        } else {
+            nav.classList.remove("scrolled");
+        }
+
         if (currentScrollY > 150) {
             if (currentScrollY > lastScrollY) {
                 // Scrolling down -> hide navbar
-                gsap.to(nav, { y: "-120%", duration: 0.3, ease: "power2.out" });
+                if (!isNavHidden) {
+                    isNavHidden = true;
+                    gsap.to(nav, { y: "-120%", duration: 0.3, ease: "power2.out", overwrite: "auto" });
+                }
             } else {
                 // Scrolling up -> show navbar
-                gsap.to(nav, { y: "0%", duration: 0.3, ease: "power2.out" });
+                if (isNavHidden) {
+                    isNavHidden = false;
+                    gsap.to(nav, { y: "0%", duration: 0.3, ease: "power2.out", overwrite: "auto" });
+                }
             }
         } else {
             // Near the top -> always show navbar
-            gsap.to(nav, { y: "0%", duration: 0.3, ease: "power2.out" });
+            if (isNavHidden) {
+                isNavHidden = false;
+                gsap.to(nav, { y: "0%", duration: 0.3, ease: "power2.out", overwrite: "auto" });
+            }
         }
 
         lastScrollY = currentScrollY;
     });
+}
+
+// --- View All Work Reveal Logic ---
+function initViewAllWork() {
+    const viewAllBtn = document.querySelector(".view-all-btn");
+    const hiddenProjects = document.querySelectorAll(".project-card-row.hidden-project");
+
+    if (viewAllBtn && hiddenProjects.length > 0) {
+        viewAllBtn.addEventListener("click", () => {
+            const isExpanded = viewAllBtn.classList.toggle("expanded");
+
+            hiddenProjects.forEach(project => {
+                if (isExpanded) {
+                    // Remove class and make visible so it animates in smoothly with GSAP
+                    project.classList.remove("hidden-project");
+                    project.style.display = "flex";
+                    gsap.fromTo(project,
+                        { opacity: 0, y: 50 },
+                        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }
+                    );
+                } else {
+                    project.classList.add("hidden-project");
+                    project.style.display = "none";
+                }
+            });
+
+            // Update button text and dot state
+            const dot = '<div class="dot"></div>';
+            if (isExpanded) {
+                viewAllBtn.innerHTML = 'SHOW LESS ' + dot;
+            } else {
+                viewAllBtn.innerHTML = 'VIEW ALL WORK ' + dot;
+                // Scroll back to the top of the projects section so user isn't disoriented
+                locoScroll.scrollTo(document.querySelector("#projects"), {
+                    offset: -50,
+                    duration: 800
+                });
+            }
+
+            // Sync heights with Locomotive Scroll and ScrollTrigger
+            setTimeout(() => {
+                locoScroll.update();
+                ScrollTrigger.refresh();
+            }, 300);
+        });
+    }
 }
 
 // --- Global Initialize ---
@@ -434,6 +527,7 @@ window.addEventListener("load", function () {
     initNavScrollDirection();
     initScrollAnimations();
     initContactForm();
+    initViewAllWork();
 
     // Logo Click -> Scroll to top
     document.querySelector(".clay-logo").addEventListener("click", () => {
