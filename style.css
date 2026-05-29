@@ -455,10 +455,10 @@ body {
 .project-card-img img {
     width: 100%;
     height: auto;
-    aspect-ratio: 1.55;
-    object-fit: cover;
-    object-position: top;
     display: block;
+    object-fit: contain;
+    object-position: top center;
+    background-color: #f8f8f8;
     transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -2139,7 +2139,7 @@ body {
     }
 
     .project-card-img img {
-        aspect-ratio: 1.4 !important;
+        width: 100% !important;
     }
 
     .project-card-info {
