@@ -279,6 +279,43 @@ function initScrollAnimations() {
             pinSpacing: false
         });
     });
+
+    // --- Homepage Hero 3D Cube Scroll-Docking Illusion ---
+    const heroCanvasContainer = document.getElementById("hero-3d-canvas-container");
+    if (heroCanvasContainer) {
+        // Scrub the hero cube's size, translation, and opacity to simulate flying/shrinking up into the navbar
+        gsap.to(heroCanvasContainer, {
+            scrollTrigger: {
+                trigger: "#hero",
+                start: "top top",
+                end: "bottom 30%",
+                scroller: "#main",
+                scrub: true
+            },
+            scale: 0.12,
+            x: "15vw",
+            y: "-30vh",
+            opacity: 0,
+            ease: "power1.inOut"
+        });
+
+        // Trigger the navbar mini-cube visibility and toggle render states perfectly
+        ScrollTrigger.create({
+            trigger: "#hero",
+            start: "bottom 70%",
+            scroller: "#main",
+            onEnter: () => {
+                const navCube = document.getElementById("nav-cube-container");
+                if (navCube) navCube.classList.add("visible");
+                window.navCubeActive = true;
+            },
+            onLeaveBack: () => {
+                const navCube = document.getElementById("nav-cube-container");
+                if (navCube) navCube.classList.remove("visible");
+                window.navCubeActive = false;
+            }
+        });
+    }
 }
 
 // --- Hero Slider Logic ---
@@ -463,6 +500,7 @@ function initNavScrollDirection() {
     const nav = document.querySelector("#nav");
     let lastScrollY = 0;
     let isNavHidden = false;
+    const isHomePage = !!document.getElementById("hero-3d-canvas-container");
 
     locoScroll.on("scroll", (instance) => {
         const currentScrollY = instance.scroll.y;
@@ -474,7 +512,9 @@ function initNavScrollDirection() {
             nav.classList.remove("scrolled");
         }
 
-        if (currentScrollY > 150) {
+        // Keep the navbar persistently visible on scroll-down strictly on the homepage,
+        // so the user can see the rotating mini docked cube spin in the header!
+        if (currentScrollY > 150 && !isHomePage) {
             if (currentScrollY > lastScrollY) {
                 // Scrolling down -> hide navbar
                 if (!isNavHidden) {
@@ -489,7 +529,7 @@ function initNavScrollDirection() {
                 }
             }
         } else {
-            // Near the top -> always show navbar
+            // Near the top or on homepage -> always show navbar
             if (isNavHidden) {
                 isNavHidden = false;
                 gsap.to(nav, { y: "0%", duration: 0.3, ease: "power2.out", overwrite: "auto" });
@@ -1175,6 +1215,140 @@ function initSubpage3DOrnaments() {
     observer.observe(container);
 }
 
+// --- Navbar Mini 3D Cube Logic ---
+window.navCubeActive = false; // Set dynamically on home page scroll, or always true on subpages
+
+function initNavbarMiniCube() {
+    const container = document.getElementById("nav-cube-container");
+    if (!container) return;
+
+    // --- Scene Setup ---
+    const scene = new THREE.Scene();
+
+    // --- Camera Setup ---
+    const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+    camera.position.set(0, 0, 4.5);
+
+    // --- Renderer Setup ---
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+    renderer.setSize(48, 48);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    // --- Lighting ---
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
+    scene.add(ambientLight);
+
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    keyLight.position.set(3, 3, 3);
+    scene.add(keyLight);
+
+    const rimLight = new THREE.PointLight(0x7c3aed, 2.5, 8);
+    rimLight.position.set(-2, 2, -2);
+    scene.add(rimLight);
+
+    // --- Procedural Canvas Texture Generators ---
+    function createGlassTexture() {
+        const canvas = document.createElement("canvas");
+        canvas.width = 128;
+        canvas.height = 128;
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, 128, 128);
+        ctx.fillStyle = "rgba(244, 243, 244, 0.38)";
+        ctx.fillRect(0, 0, 128, 128);
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = 14;
+        ctx.strokeRect(0, 0, 128, 128);
+        const tex = new THREE.CanvasTexture(canvas);
+        return tex;
+    }
+
+    function createPurpleTexture() {
+        const canvas = document.createElement("canvas");
+        canvas.width = 128;
+        canvas.height = 128;
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#5d33b0";
+        ctx.fillRect(0, 0, 128, 128);
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = 14;
+        ctx.strokeRect(0, 0, 128, 128);
+        const tex = new THREE.CanvasTexture(canvas);
+        return tex;
+    }
+
+    // --- Materials ---
+    const glassMaterial = new THREE.MeshPhysicalMaterial({
+        map: createGlassTexture(),
+        transparent: true,
+        opacity: 0.95,
+        roughness: 0.1,
+        metalness: 0.1,
+        clearcoat: 1.0,
+        reflectivity: 0.5,
+        side: THREE.DoubleSide,
+        depthWrite: false
+    });
+
+    const coreMaterial = new THREE.MeshPhysicalMaterial({
+        map: createPurpleTexture(),
+        roughness: 0.2,
+        metalness: 0.8,
+        clearcoat: 1.0,
+        reflectivity: 0.6
+    });
+
+    // --- Master Group ---
+    const group = new THREE.Group();
+    scene.add(group);
+
+    // Outer Glass Cube
+    const outerGeom = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+    const outerMesh = new THREE.Mesh(outerGeom, glassMaterial);
+    group.add(outerMesh);
+
+    // Inner Purple Core Cube
+    const coreGeom = new THREE.BoxGeometry(0.68, 0.68, 0.68);
+    const coreMesh = new THREE.Mesh(coreGeom, coreMaterial);
+    group.add(coreMesh);
+
+    // --- Animation State ---
+    const clock = new THREE.Clock();
+    let frameId;
+
+    const isHomePage = !!document.getElementById("hero-3d-canvas-container");
+
+    if (!isHomePage) {
+        // Subpage: Always active and visible
+        window.navCubeActive = true;
+        container.classList.add("visible");
+    }
+
+    function animate() {
+        frameId = requestAnimationFrame(animate);
+
+        if (!window.navCubeActive) return;
+
+        const elapsedTime = clock.getElapsedTime();
+
+        // Tumbling continuous rotation
+        group.rotation.x = elapsedTime * 0.42;
+        group.rotation.y = elapsedTime * 0.55;
+        group.rotation.z = elapsedTime * 0.22;
+
+        renderer.render(scene, camera);
+    }
+
+    // Start Loop
+    animate();
+
+    // --- Resize ---
+    function handleResize() {
+        renderer.setSize(48, 48);
+    }
+    window.addEventListener("resize", handleResize);
+}
+
 // --- Global Initialize ---
 window.addEventListener("load", function () {
     // Refresh Locomotive and ScrollTrigger first
@@ -1190,6 +1364,7 @@ window.addEventListener("load", function () {
     initEyeTracking();
     initHero3DAnimation(); // Initialize the premium Three.js WebGL graphic
     initSubpage3DOrnaments(); // Initialize premium floating WebGL assets
+    initNavbarMiniCube(); // Initialize navbar mini brand cube
     initHeroSlider();
     initNavScroll();
     initNavScrollDirection();
