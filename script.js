@@ -283,26 +283,42 @@ function initScrollAnimations() {
     // --- Homepage Hero 3D Cube Scroll-Docking Illusion ---
     const heroCanvasContainer = document.getElementById("hero-3d-canvas-container");
     if (heroCanvasContainer) {
-        // Scrub the hero cube's size, translation, and opacity to simulate flying/shrinking up into the navbar
-        gsap.to(heroCanvasContainer, {
+        // Create a dedicated ScrollTrigger timeline to scrub the flight path and size
+        const dockingTimeline = gsap.timeline({
             scrollTrigger: {
                 trigger: "#hero",
                 start: "top top",
-                end: "bottom 30%",
+                end: "bottom top", // Transition takes place over the full scroll of the hero section
                 scroller: "#main",
                 scrub: true
-            },
-            scale: 0.12,
-            x: "15vw",
-            y: "-30vh",
-            opacity: 0,
-            ease: "power1.inOut"
+            }
         });
 
-        // Trigger the navbar mini-cube visibility and toggle render states perfectly
+        // 1. Move and scale the hero cube container smoothly into the navbar position
+        // Translates y: "-40vh" and x: "18vw" to target the nav-right area
+        dockingTimeline.to(heroCanvasContainer, {
+            scale: 0.12,
+            x: "18vw",
+            y: "-40vh",
+            ease: "none"
+        }, 0);
+
+        // 2. Keep the opacity high during the flight, and only fade out in the last 15% of the scroll
+        dockingTimeline.fromTo(heroCanvasContainer, 
+            { opacity: 1 },
+            { opacity: 0.1, duration: 0.85, ease: "none" }, 
+            0
+        );
+        dockingTimeline.to(heroCanvasContainer, {
+            opacity: 0,
+            duration: 0.15,
+            ease: "power1.out"
+        }, 0.85);
+
+        // Trigger the navbar mini-cube visibility and toggle render states perfectly as the hero cube lands
         ScrollTrigger.create({
             trigger: "#hero",
-            start: "bottom 70%",
+            start: "bottom 40%", // Trigger exactly as the hero cube finishes its flight path and reaches the navbar
             scroller: "#main",
             onEnter: () => {
                 const navCube = document.getElementById("nav-cube-container");
