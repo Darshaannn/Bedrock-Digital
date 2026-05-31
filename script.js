@@ -1017,6 +1017,164 @@ function initHero3DAnimation() {
     observer.observe(container);
 }
 
+// --- Premium 3D Floating Ornaments for Subpage Headers ---
+function initSubpage3DOrnaments() {
+    const container = document.getElementById("subpage-canvas-container");
+    if (!container) return;
+
+    const shapeType = container.getAttribute("data-shape"); // "cube" or "torus"
+
+    // --- Scene Setup ---
+    const scene = new THREE.Scene();
+
+    // --- Camera Setup ---
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+    camera.position.set(0, 0, 5.0);
+
+    // --- Renderer Setup ---
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    container.appendChild(renderer.domElement);
+
+    // --- Lighting ---
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.55);
+    scene.add(ambientLight);
+
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    keyLight.position.set(5, 5, 5);
+    scene.add(keyLight);
+
+    const rimLight = new THREE.PointLight(0x7c3aed, 2.5, 10);
+    rimLight.position.set(-3, 3, -2);
+    scene.add(rimLight);
+
+    // --- Texture Generator (Bold black outlines with 38% glass transparency) ---
+    function createGlassTexture() {
+        const canvas = document.createElement("canvas");
+        canvas.width = 256;
+        canvas.height = 256;
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, 256, 256);
+        ctx.fillStyle = "rgba(244, 243, 244, 0.38)";
+        ctx.fillRect(0, 0, 256, 256);
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = 18;
+        ctx.strokeRect(0, 0, 256, 256);
+
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.minFilter = THREE.LinearMipmapLinearFilter;
+        return tex;
+    }
+
+    const glassTex = createGlassTexture();
+
+    // --- Materials ---
+    const glassMaterial = new THREE.MeshPhysicalMaterial({
+        map: glassTex,
+        roughness: 0.1,
+        metalness: 0.1,
+        transparent: true,
+        opacity: 0.95,
+        transmission: 0.6,
+        ior: 1.5,
+        thickness: 1.5,
+        side: THREE.DoubleSide,
+        depthWrite: false
+    });
+
+    const coreMaterial = new THREE.MeshStandardMaterial({
+        color: 0x5d33b0, // Bedrock brand purple
+        roughness: 0.1,
+        metalness: 0.9
+    });
+
+    // --- Group ---
+    const group = new THREE.Group();
+    scene.add(group);
+
+    // --- Geometries ---
+    let outerMesh;
+    if (shapeType === "cube") {
+        // Outer Translucent Glass Cube
+        const geom = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+        outerMesh = new THREE.Mesh(geom, glassMaterial);
+    } else {
+        // Outer Translucent Glass Torus
+        const geom = new THREE.TorusGeometry(0.85, 0.3, 16, 100);
+        outerMesh = new THREE.Mesh(geom, glassMaterial);
+    }
+    group.add(outerMesh);
+
+    // Inner Brand Purple Core Sphere floating in center
+    const coreGeom = new THREE.SphereGeometry(0.35, 32, 32);
+    const coreMesh = new THREE.Mesh(coreGeom, coreMaterial);
+    group.add(coreMesh);
+
+    // --- Animation State ---
+    const clock = new THREE.Clock();
+    let frameId;
+    let isActive = true;
+
+    function animate() {
+        if (!isActive) return;
+        frameId = requestAnimationFrame(animate);
+
+        const elapsedTime = clock.getElapsedTime();
+
+        // Calm floating physics
+        group.position.y = Math.sin(elapsedTime * 1.5) * 0.15;
+        
+        // Tumbling rotations
+        outerMesh.rotation.y = elapsedTime * 0.38;
+        outerMesh.rotation.x = elapsedTime * 0.28;
+        
+        coreMesh.rotation.y = -elapsedTime * 0.4;
+        coreMesh.position.y = Math.sin(elapsedTime * 2.2) * 0.08;
+
+        renderer.render(scene, camera);
+    }
+
+    // --- Mouse Move Parallax ---
+    window.addEventListener("mousemove", (e) => {
+        const mouseX = (e.clientX / window.innerWidth) - 0.5;
+        const mouseY = (e.clientY / window.innerHeight) - 0.5;
+
+        gsap.to(group.rotation, {
+            y: mouseX * 0.8,
+            x: mouseY * 0.8,
+            duration: 0.8,
+            overwrite: "auto",
+            ease: "power2.out"
+        });
+    });
+
+    // --- Resize ---
+    function handleResize() {
+        if (!container.clientWidth || !container.clientHeight) return;
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+    }
+    window.addEventListener("resize", handleResize);
+
+    // --- Viewport Intersection Observer for high performance ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            isActive = entry.isIntersecting;
+            if (isActive) {
+                clock.getDelta();
+                animate();
+            } else {
+                cancelAnimationFrame(frameId);
+            }
+        });
+    }, { threshold: 0.05 });
+
+    observer.observe(container);
+}
+
 // --- Global Initialize ---
 window.addEventListener("load", function () {
     // Refresh Locomotive and ScrollTrigger first
@@ -1031,6 +1189,7 @@ window.addEventListener("load", function () {
     initProjectCards();
     initEyeTracking();
     initHero3DAnimation(); // Initialize the premium Three.js WebGL graphic
+    initSubpage3DOrnaments(); // Initialize premium floating WebGL assets
     initHeroSlider();
     initNavScroll();
     initNavScrollDirection();

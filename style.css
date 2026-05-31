@@ -2274,17 +2274,22 @@ body {
    ========================================================================== */
 
 /* Subpage Common Header */
-.subpage-header-section {
+.subpage-header-section,
+.about-hero-section {
     width: 100%;
     min-height: 55vh;
     padding: 12vw 4vw 4vw 4vw;
     background-color: var(--bg-color);
     display: flex;
+    justify-content: space-between;
     align-items: flex-end;
+    gap: 4vw;
 }
 
-.subpage-header-content {
-    max-width: 1000px;
+.subpage-header-content,
+.about-hero-content {
+    flex: 1.2;
+    max-width: 60%;
     display: flex;
     flex-direction: column;
     gap: 1.5vw;
@@ -2315,6 +2320,149 @@ body {
     line-height: 1.45;
     margin-top: 1vw;
     max-width: 850px;
+}
+
+.subpage-header-graphic {
+    flex: 0.8;
+    width: 40%;
+    min-width: 320px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+#subpage-canvas-container {
+    width: 100%;
+    height: 380px;
+    position: relative;
+    outline: none;
+}
+
+/* High-Tech Services Metric Widget */
+.services-metric-widget {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 24px;
+    padding: 2.2vw;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.8vw;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.03);
+    border-bottom: 3px solid #000000;
+}
+
+.widget-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding-bottom: 1vw;
+}
+
+.widget-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--brand-color);
+    box-shadow: 0 0 10px var(--brand-color);
+    animation: pulse-dot 1.8s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+.widget-meta {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    color: #666;
+    margin-right: auto;
+    margin-left: 10px;
+}
+
+.widget-coords {
+    font-family: monospace;
+    font-size: 10px;
+    color: #888;
+}
+
+.widget-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vw;
+}
+
+.widget-metric-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6vw;
+}
+
+.metric-info {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.metric-num {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.8vw;
+    font-weight: 700;
+    color: #111;
+}
+
+.metric-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85vw;
+    font-weight: 500;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.metric-bar-wrapper {
+    width: 100%;
+    height: 6px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.metric-bar {
+    height: 100%;
+    background-color: #111111;
+    border-radius: 10px;
+}
+
+.animate-pulse-width {
+    animation: pulse-width 3s infinite ease-in-out;
+}
+
+@keyframes pulse-width {
+    0%, 100% { opacity: 0.95; }
+    50% { opacity: 0.6; }
+}
+
+.widget-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding-top: 1vw;
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    color: #666;
+}
+
+.footer-latency {
+    font-family: monospace;
+    color: #888;
 }
 
 /* Subpage Projects Section */
@@ -2724,9 +2872,49 @@ body {
 
 /* Responsive Adaptive Layouts for Mobile subpages */
 @media (max-width: 768px) {
-    .subpage-header-section {
-        min-height: 40vh;
-        padding: 30vw 4vw 6vw 4vw;
+    .subpage-header-section,
+    .about-hero-section {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8vw !important;
+        padding: 30vw 4vw 6vw 4vw !important;
+        min-height: auto !important;
+    }
+    .subpage-header-content,
+    .about-hero-content {
+        max-width: 100% !important;
+        width: 100% !important;
+        flex: none !important;
+    }
+    .subpage-header-graphic {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        margin-top: 4vw !important;
+        flex: none !important;
+    }
+    #subpage-canvas-container {
+        height: 260px !important;
+    }
+    .services-metric-widget {
+        padding: 5vw !important;
+        gap: 4vw !important;
+        border-bottom: 2px solid #000 !important;
+    }
+    .metric-num {
+        font-size: 6vw !important;
+    }
+    .metric-title {
+        font-size: 2.8vw !important;
+    }
+    .widget-header,
+    .widget-footer {
+        padding-bottom: 3vw !important;
+        padding-top: 3vw !important;
+    }
+    .widget-meta {
+        font-size: 10px !important;
     }
     .subpage-title {
         font-size: 12vw;
@@ -2755,10 +2943,6 @@ body {
     }
     .capabilities-list p {
         font-size: 0.95rem;
-    }
-    .about-hero-section {
-        min-height: 40vh;
-        padding: 30vw 4vw 6vw 4vw;
     }
     .about-hero-title {
         font-size: 12vw;
