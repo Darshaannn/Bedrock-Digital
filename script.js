@@ -290,30 +290,30 @@ function initScrollAnimations() {
                 start: "top top",
                 end: "bottom top", // Transition takes place over the full scroll of the hero section
                 scroller: "#main",
-                scrub: true
+                scrub: 1.5 // Adds a beautiful, premium damping lag (1.5s catching up) for buttery-smooth flow!
             }
         });
 
         // 1. Move and scale the hero cube container smoothly into the navbar position
-        // Translates y: "-40vh" and x: "18vw" to target the nav-right area
+        // Translates y: "-40vh" and x: "18vw" with power2.out ease to decelerate slowly and gracefully into place
         dockingTimeline.to(heroCanvasContainer, {
             scale: 0.12,
             x: "18vw",
             y: "-40vh",
-            ease: "none"
+            ease: "power2.out"
         }, 0);
 
-        // 2. Keep the opacity high during the flight, and only fade out in the last 15% of the scroll
+        // 2. Keep the opacity high during the flight, and only fade out in the last 20% of the scroll
         dockingTimeline.fromTo(heroCanvasContainer, 
             { opacity: 1 },
-            { opacity: 0.1, duration: 0.85, ease: "none" }, 
+            { opacity: 0.1, duration: 0.8, ease: "power1.out" }, 
             0
         );
         dockingTimeline.to(heroCanvasContainer, {
             opacity: 0,
-            duration: 0.15,
-            ease: "power1.out"
-        }, 0.85);
+            duration: 0.2,
+            ease: "power2.out"
+        }, 0.8);
 
         // Trigger the navbar mini-cube visibility and toggle render states perfectly as the hero cube lands
         ScrollTrigger.create({
