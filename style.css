@@ -2283,7 +2283,7 @@ body {
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
     gap: 4vw;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .subpage-header-content,
@@ -2319,6 +2319,77 @@ body {
     line-height: 1.45;
     margin-top: 1vw;
     max-width: 850px;
+}
+
+/* Subpage Breadcrumbs & Tag Pills */
+.subpage-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.4);
+    text-transform: uppercase;
+    margin-bottom: 0.5vw;
+}
+
+.subpage-breadcrumbs a {
+    color: rgba(0, 0, 0, 0.4);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.subpage-breadcrumbs a:hover {
+    color: var(--brand-color);
+}
+
+.subpage-breadcrumbs .current-page {
+    color: var(--brand-color);
+    font-weight: 600;
+}
+
+.subpage-breadcrumbs i {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.header-tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 2vw;
+    width: 100%;
+}
+
+.header-tag-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 50px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    color: #444;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.01);
+    transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.header-tag-pill i {
+    font-size: 12px;
+    color: var(--brand-color);
+}
+
+.header-tag-pill:hover {
+    border-color: var(--brand-color);
+    color: var(--brand-color);
+    transform: translateY(-2px);
 }
 
 .subpage-header-graphic {
