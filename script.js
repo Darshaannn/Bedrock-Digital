@@ -1247,7 +1247,7 @@ function initNavbarMiniCube() {
 
     // --- Renderer Setup ---
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
-    renderer.setSize(48, 48);
+    renderer.setSize(64, 64);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
@@ -1360,7 +1360,7 @@ function initNavbarMiniCube() {
 
     // --- Resize ---
     function handleResize() {
-        renderer.setSize(48, 48);
+        renderer.setSize(64, 64);
     }
     window.addEventListener("resize", handleResize);
 }
