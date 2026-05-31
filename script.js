@@ -129,10 +129,10 @@ function initPreloader() {
     const typewriterElement = document.getElementById("typewriter");
     
     // Hide everything else initially
-    gsap.set(["#nav", ".hero-description", ".hero-cta", ".container", "#marquee", "#about", "#why-barter", "#barter-services", "#projects", "#ready", "#contact", "#footer-wrapper"], { opacity: 0, y: 20 });
+    gsap.set(["#nav", ".hero-description", ".hero-cta", "#hero-3d-canvas-container", "#marquee", "#about", "#why-barter", "#barter-services", "#projects", "#ready", "#contact", "#footer-wrapper"], { opacity: 0, y: 20 });
     
     // Scale container initial state so it can animate in properly
-    gsap.set(".container", { scale: 0 });
+    gsap.set("#hero-3d-canvas-container", { scale: 0 });
     
     // We want to type "Built Different." first, then "<br>", then "Built Digital."
     const parts = [
@@ -197,8 +197,8 @@ function loaderAnimation() {
     }, "-=0.5");
 
     // Pop in cubes
-    tl.to(".container", {
-        scale: 2.5,
+    tl.to("#hero-3d-canvas-container", {
+        scale: 1,
         opacity: 1,
         y: 0,
         duration: 1.5,
@@ -586,6 +586,436 @@ function initViewAllWork() {
     }
 }
 
+// --- Premium 3D Three.js Animation for Hero Graphic ---
+function initHero3DAnimation() {
+    const container = document.getElementById("hero-3d-canvas-container");
+    if (!container) return;
+
+    // --- Scene Setup ---
+    const scene = new THREE.Scene();
+
+    // --- Camera Setup ---
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+    camera.position.set(0, 0, 7.5);
+
+    // --- Renderer Setup ---
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
+    container.appendChild(renderer.domElement);
+
+    // --- Lighting Design (Premium Studio Feel) ---
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.45);
+    scene.add(ambientLight);
+
+    // Main Key Light casting premium shadows
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1.4);
+    dirLight.position.set(6, 9, 6);
+    dirLight.castShadow = true;
+    dirLight.shadow.mapSize.width = 1024;
+    dirLight.shadow.mapSize.height = 1024;
+    dirLight.shadow.camera.near = 0.5;
+    dirLight.shadow.camera.far = 25;
+    dirLight.shadow.bias = -0.0005;
+    dirLight.shadow.normalBias = 0.02;
+    scene.add(dirLight);
+
+    // Soft Purple Rim Accent Light to make edges pop spectacularly!
+    const rimLight = new THREE.PointLight(0x7c3aed, 3.5, 15); // Brand Purple
+    rimLight.position.set(-4, 3, -3);
+    scene.add(rimLight);
+
+    // Soft Fill Light from bottom-left
+    const fillLight = new THREE.DirectionalLight(0xbabccf, 0.5);
+    fillLight.position.set(-5, -3, 3);
+    scene.add(fillLight);
+
+    // --- Procedural Canvas Texture Generators ---
+    
+    // Premium Translucent Glass Texture with bold, crisp black border outlines (exactly like the user's design)
+    function createGlassCubeTexture() {
+        const canvas = document.createElement("canvas");
+        canvas.width = 512;
+        canvas.height = 512;
+        const ctx = canvas.getContext("2d");
+
+        // Clear canvas to ensure perfect transparency
+        ctx.clearRect(0, 0, 512, 512);
+
+        // Fill inner with translucent white matching brand #f4f3f4 (38% opacity for elite see-through depth)
+        ctx.fillStyle = "rgba(244, 243, 244, 0.38)";
+        ctx.fillRect(0, 0, 512, 512);
+
+        // Crisp solid black border (bold thick outlines exactly like the attached image!)
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = 36; // Thick crisp border outlines
+        ctx.strokeRect(0, 0, 512, 512);
+
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.generateMipmaps = true;
+        tex.minFilter = THREE.LinearMipmapLinearFilter;
+        return tex;
+    }
+
+    // Initialize Texture
+    const glassTex = createGlassCubeTexture();
+
+    // 1. Premium Purple Brand Core Texture (#5d33b0) with bold black border outlines
+    function createCorePurpleTexture() {
+        const canvas = document.createElement("canvas");
+        canvas.width = 512;
+        canvas.height = 512;
+        const ctx = canvas.getContext("2d");
+
+        // Solid Bedrock Purple core color (#5d33b0)
+        ctx.fillStyle = "#5d33b0";
+        ctx.fillRect(0, 0, 512, 512);
+
+        // Soft radial glowing center highlights
+        const radGrad = ctx.createRadialGradient(256, 256, 0, 256, 256, 300);
+        radGrad.addColorStop(0, "rgba(255, 255, 255, 0.28)");
+        radGrad.addColorStop(1, "rgba(0, 0, 0, 0.2)");
+        ctx.fillStyle = radGrad;
+        ctx.fillRect(0, 0, 512, 512);
+
+        // Crisp solid black border (matches the outer glass-white cubes outlines!)
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = 36; // Thick outlines
+        ctx.strokeRect(0, 0, 512, 512);
+
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.generateMipmaps = true;
+        tex.minFilter = THREE.LinearMipmapLinearFilter;
+        return tex;
+    }
+
+    // Initialize Core Texture
+    const corePurpleTex = createCorePurpleTexture();
+
+    // --- Physical Materials ---
+    const materialGlass = new THREE.MeshPhysicalMaterial({
+        map: glassTex,
+        transparent: true,
+        roughness: 0.15,
+        metalness: 0.05,
+        clearcoat: 0.8,
+        clearcoatRoughness: 0.1,
+        reflectivity: 0.5,
+        side: THREE.DoubleSide,
+        depthWrite: false // Prevents alpha sorting clipping artifacts completely!
+    });
+
+    const materialCorePurple = new THREE.MeshPhysicalMaterial({
+        map: corePurpleTex,
+        roughness: 0.25,
+        metalness: 0.35,
+        clearcoat: 0.8,
+        clearcoatRoughness: 0.1,
+        reflectivity: 0.6,
+        side: THREE.DoubleSide
+    });
+
+    // --- Master Group ---
+    const cubeGroup = new THREE.Group();
+    scene.add(cubeGroup);
+
+    // --- 27 Cubes Creation ---
+    const cubes = [];
+    const size = 0.74;       // Cube size (reduced from 0.85 for prominent gaps)
+    const step = 0.94;       // Target position step (leaves a beautiful architectural 0.20 gap)
+    const geometry = new THREE.BoxGeometry(size, size, size);
+
+    // Shuffle helper to make flying entry random and gorgeous
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    let coreCube = null;
+
+    // Outer boundary material checking
+    for (let x = -1; x <= 1; x++) {
+        for (let y = -1; y <= 1; y++) {
+            for (let z = -1; z <= 1; z++) {
+                const isCore = (x === 0 && y === 0 && z === 0);
+
+                let materials;
+                
+                if (isCore) {
+                    // Central core cube has Bedrock Brand Purple material (#5d33b0) with black borders!
+                    materials = [
+                        materialCorePurple,
+                        materialCorePurple,
+                        materialCorePurple,
+                        materialCorePurple,
+                        materialCorePurple,
+                        materialCorePurple
+                    ];
+                } else {
+                    // Outer modules use the translucent glass material!
+                    materials = [
+                        materialGlass,
+                        materialGlass,
+                        materialGlass,
+                        materialGlass,
+                        materialGlass,
+                        materialGlass
+                    ];
+                }
+
+                const mesh = new THREE.Mesh(geometry, materials);
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
+                cubeGroup.add(mesh);
+
+                const cubeData = {
+                    mesh: mesh,
+                    gridX: x,
+                    gridY: y,
+                    gridZ: z,
+                    targetX: x * step,
+                    targetY: y * step,
+                    targetZ: z * step,
+                    isCore: isCore
+                };
+
+                if (isCore) {
+                    coreCube = cubeData;
+                    // Position at center
+                    mesh.position.set(0, 0, 0);
+                    mesh.scale.set(1, 1, 1);
+                } else {
+                    // Position randomly far away on a sphere of radius 15-18
+                    const theta = Math.random() * Math.PI * 2;
+                    const phi = Math.acos((Math.random() * 2) - 1);
+                    const radius = 14 + Math.random() * 4;
+
+                    mesh.position.x = radius * Math.sin(phi) * Math.cos(theta);
+                    mesh.position.y = radius * Math.sin(phi) * Math.sin(theta);
+                    mesh.position.z = radius * Math.cos(phi);
+
+                    // Random initial rotation
+                    mesh.rotation.set(
+                        (Math.random() - 0.5) * Math.PI * 3,
+                        (Math.random() - 0.5) * Math.PI * 3,
+                        (Math.random() - 0.5) * Math.PI * 3
+                    );
+
+                    // Scale to 0 initially
+                    mesh.scale.set(0, 0, 0);
+                    cubes.push(cubeData);
+                }
+            }
+        }
+    }
+
+    // --- Animation Timeline Variables ---
+    let isAssembled = false;
+    let isRotatingLoop = false;
+    let clock = new THREE.Clock();
+    let lastTime = 0; // For frame-by-frame deltaTime calculation
+
+    // Smooth rotational angles starting exactly at 0 to prevent sudden jumps
+    let rotX = 0;
+    let rotY = 0;
+    let rotZ = 0;
+
+    // Subtle floating state parameters for the core
+    let coreFloatY = 0;
+    let coreFloatRotX = 0;
+    let coreFloatRotY = 0;
+
+    // --- Magnetic Attraction Animation Trigger ---
+    function triggerMagneticAssembly() {
+        const tl = gsap.timeline({
+            delay: 1.5, // Floating core calm float for 1.5s after loader before magnetism activates
+            onComplete: () => {
+                // All cubes snapped. Pause majestically for 1.0s (deliberate and clean), then smoothly align and start loop
+                gsap.delayedCall(1.0, () => {
+                    isAssembled = true;
+                    
+                    // Smoothly transition all cube rotations and positions to absolute perfection
+                    cubes.forEach(c => {
+                        gsap.to(c.mesh.position, { x: c.targetX, y: c.targetY, z: c.targetZ, duration: 0.6, ease: "power3.out" });
+                        gsap.to(c.mesh.rotation, { x: 0, y: 0, z: 0, duration: 0.6, ease: "power3.out" });
+                    });
+                    
+                    gsap.to(coreCube.mesh.position, { x: 0, y: 0, z: 0, duration: 0.6, ease: "power3.out" });
+                    gsap.to(coreCube.mesh.rotation, { x: 0, y: 0, z: 0, duration: 0.6, ease: "power3.out" });
+
+                    // Slowly activate infinite rotation loop
+                    gsap.delayedCall(0.6, () => {
+                        isRotatingLoop = true;
+                    });
+                });
+            }
+        });
+
+        // Shuffle external cubes for organic and scattered entry flow
+        shuffle(cubes);
+
+        cubes.forEach((cube, index) => {
+            // Elegant, slow, deliberate stagger delay so they snap in a gorgeous structured sequence
+            const staggerDelay = index * 0.12;
+
+            // 1. Set scale in
+            tl.to(cube.mesh.scale, {
+                x: 1, y: 1, z: 1,
+                duration: 0.6,
+                ease: "power2.out"
+            }, staggerDelay);
+
+            // 2. Chained bezier movement path (accelerates in, snaps slow and clean)
+            const startPos = cube.mesh.position.clone();
+            const endPos = new THREE.Vector3(cube.targetX, cube.targetY, cube.targetZ);
+
+            // Control point for a beautiful curved arc entry
+            const controlPoint = new THREE.Vector3()
+                .addVectors(startPos, endPos)
+                .multiplyScalar(0.5)
+                .add(new THREE.Vector3(
+                    (Math.random() - 0.5) * 6,
+                    (Math.random() - 0.5) * 6,
+                    (Math.random() - 0.5) * 6
+                ));
+
+            // Curved GSAP animation (duration set to a slow, majestic 2.0s!)
+            const pathObj = { t: 0 };
+            const pathTl = gsap.timeline();
+            pathTl.to(pathObj, {
+                t: 1,
+                duration: 2.0,
+                ease: "power3.inOut",
+                onUpdate: () => {
+                    const t = pathObj.t;
+                    // Quadratic Bezier Curve formula
+                    cube.mesh.position.x = (1 - t) * (1 - t) * startPos.x + 2 * (1 - t) * t * controlPoint.x + t * t * endPos.x;
+                    cube.mesh.position.y = (1 - t) * (1 - t) * startPos.y + 2 * (1 - t) * t * controlPoint.y + t * t * endPos.y;
+                    cube.mesh.position.z = (1 - t) * (1 - t) * startPos.z + 2 * (1 - t) * t * controlPoint.z + t * t * endPos.z;
+                },
+                onComplete: () => {
+                    // Click overshoot & snapping bounce (slow, premium, and clean lock!)
+                    gsap.timeline()
+                        .to(cube.mesh.scale, { x: 1.10, y: 1.10, z: 1.10, duration: 0.15, ease: "power2.out" })
+                        .to(cube.mesh.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 0.35, ease: "back.out(1.2)" });
+                }
+            });
+
+            // Smooth rotation alignment during flight (slowed down to 1.8s for clean rotation)
+            pathTl.to(cube.mesh.rotation, {
+                x: 0, y: 0, z: 0,
+                duration: 1.8,
+                ease: "power2.out"
+            }, 0.05);
+
+            // Append to main timeline
+            tl.add(pathTl, staggerDelay);
+        });
+    }
+
+    // Trigger the magnetic magnetism assembly after loader animation finishes
+    // Triggered at 3.0s to sync beautifully as the header typing settles cleanly
+    setTimeout(triggerMagneticAssembly, 3000);
+
+    // --- Render Loop ---
+    let frameId;
+    let isActive = true; // For optimization
+
+    function animate() {
+        if (!isActive) return;
+        frameId = requestAnimationFrame(animate);
+
+        const elapsedTime = clock.getElapsedTime();
+        const deltaTime = elapsedTime - lastTime;
+        lastTime = elapsedTime;
+
+        if (!isAssembled) {
+            // Scene 1: Floating core animation (slightly faster core floating)
+            coreFloatY = Math.sin(elapsedTime * 2.2) * 0.14;
+            coreFloatRotX = elapsedTime * 0.35;
+            coreFloatRotY = elapsedTime * 0.45;
+
+            if (coreCube) {
+                coreCube.mesh.position.y = coreFloatY;
+                coreCube.mesh.rotation.x = coreFloatRotX;
+                coreCube.mesh.rotation.y = coreFloatRotY;
+            }
+            
+            // Subtly rotate the main camera view to make entry look alive
+            camera.position.x = Math.sin(elapsedTime * 0.45) * 0.5;
+            camera.position.y = Math.cos(elapsedTime * 0.45) * 0.3;
+            camera.lookAt(0, 0, 0);
+        } else if (isRotatingLoop) {
+            // Scene 6: Infinite rotation loop of the final assembled structure (360 degrees tumbling - starts seamlessly from the snapped position!)
+            rotY += deltaTime * 0.42; // Continuous spin left-to-right
+            rotX += deltaTime * 0.32; // Continuous spin up-and-down
+            rotZ += deltaTime * 0.14; // Continuous twist
+
+            cubeGroup.rotation.y = rotY;
+            cubeGroup.rotation.x = rotX;
+            cubeGroup.rotation.z = rotZ;
+            
+            // Subtly adjust point light to create rich moving reflections
+            rimLight.position.x = -4 + Math.sin(elapsedTime * 0.8) * 3;
+            rimLight.position.z = -3 + Math.cos(elapsedTime * 0.8) * 3;
+        }
+
+        renderer.render(scene, camera);
+    }
+
+    // --- Mouse Move Micro Interaction (Subtle depth tilt based on cursor) ---
+    window.addEventListener("mousemove", (e) => {
+        if (!isAssembled) return;
+        
+        // Normalize mouse positions from -0.5 to 0.5
+        const mouseX = (e.clientX / window.innerWidth) - 0.5;
+        const mouseY = (e.clientY / window.innerHeight) - 0.5;
+
+        // Micro-tilt parent group toward mouse position for stunning 3D parallax depth!
+        gsap.to(cubeGroup.position, {
+            x: mouseX * 0.6,
+            y: -mouseY * 0.6,
+            duration: 0.8,
+            ease: "power2.out"
+        });
+    });
+
+    // Start Loop
+    animate();
+
+    // --- Responsive Dynamic Sizing ---
+    function handleResize() {
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+    }
+    window.addEventListener("resize", handleResize);
+
+    // --- Performance Optimization: Viewport Observer ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            isActive = entry.isIntersecting;
+            if (isActive) {
+                clock.getDelta(); // reset clock delta to avoid jumps
+                animate();
+            } else {
+                cancelAnimationFrame(frameId);
+            }
+        });
+    }, { threshold: 0.05 });
+    
+    observer.observe(container);
+}
+
 // --- Global Initialize ---
 window.addEventListener("load", function () {
     // Refresh Locomotive and ScrollTrigger first
@@ -599,6 +1029,7 @@ window.addEventListener("load", function () {
     initCursor();
     initProjectCards();
     initEyeTracking();
+    initHero3DAnimation(); // Initialize the premium Three.js WebGL graphic
     initHeroSlider();
     initNavScroll();
     initNavScrollDirection();

@@ -273,86 +273,28 @@ body {
     right: 2vw;
     top: 50%;
     transform: translateY(-50%);
-    width: 50vw;
-    height: 50vw;
+    width: 45vw; /* Slightly optimized width for better balance */
+    height: 45vw;
     z-index: 5;
     pointer-events: none;
 }
 
-/* Cube Animation from Uiverse */
-@keyframes hue-rotate {
-  to {
-    filter: hue-rotate(360deg);
-  }
+/* Premium Three.js Canvas Container */
+#hero-3d-canvas-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
 }
 
-.container {
-  --w: 35px;
-  --g: 5px;
-  --t: calc(var(--w) + var(--g));
-  width: var(--w);
-  aspect-ratio: 1;
-  perspective: 120px;
-  transform-style: preserve-3d;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  /* Scale it up for hero section and center it */
-  transform: translate(-50%, -50%) scale(2.5);
-  pointer-events: auto;
-}
-
-.cube-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  animation: rotate-wrapper 20s linear infinite;
-  --p: translateX(calc(-0.5 * var(--w))) translateY(calc(-0.5 * var(--w))) translateZ(calc(-0.5 * var(--w)));
-}
-
-.cube {
-  --fz: 0;
-  --rx: 0;
-  --fx: 0;
-  --ry: 0;
-  --fy: 0;
-  position: absolute;
-  background: #fffc;
-  border: 2px solid black;
-  width: var(--w);
-  aspect-ratio: 1;
-  bottom: calc(var(--w) * -0.5);
-  right: calc(var(--w) * -0.5);
-  transform: var(--a);
-  transition: 5s;
-  --a: translateZ(calc(0.5 * var(--w)))
-    translateX(calc(var(--x) * var(--t) - 0.5 * var(--fy) * var(--w)))
-    translateY(calc(var(--y) * var(--t) - 0.5 * var(--fx) * var(--w)))
-    translateZ(
-      calc(
-        var(--z) * var(--t) - 0.5 * var(--ry) * var(--w) - 0.5 * var(--rx) *
-          var(--w) - var(--fz) * var(--w)
-      )
-    )
-    rotateX(calc(90deg * var(--rx))) rotateY(calc(90deg * var(--ry)));
-}
-
-.cube:hover {
-  background: #f00e;
-  transition: 0s;
-  animation: hue-rotate 2s linear infinite;
-}
-
-@keyframes rotate-wrapper {
-  0% {
-    transform: var(--p) rotateZ(0deg) rotateY(0deg) rotateX(0deg);
-  }
-  to {
-    transform: var(--p) rotateZ(360deg) rotateY(720deg) rotateX(360deg);
-  }
+#hero-3d-canvas-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+    outline: none;
 }
 
 /* About Section */
