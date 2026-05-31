@@ -2261,11 +2261,552 @@ body {
         will-change: opacity, transform;
     }
 
-    /* Triggered state — added by IntersectionObserver in script.js */
     .mob-reveal.is-visible,
     .mob-reveal-left.is-visible,
     .mob-reveal-stagger.is-visible > * {
         opacity: 1;
         transform: none;
+    }
+}
+
+/* ==========================================================================
+   BEDROCK DIGITAL STANDALONE SUBPAGES STYLING
+   ========================================================================== */
+
+/* Subpage Common Header */
+.subpage-header-section {
+    width: 100%;
+    min-height: 55vh;
+    padding: 12vw 4vw 4vw 4vw;
+    background-color: var(--bg-color);
+    display: flex;
+    align-items: flex-end;
+}
+
+.subpage-header-content {
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vw;
+}
+
+.subpage-eyebrow {
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: var(--brand-color);
+}
+
+.subpage-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 8vw;
+    font-weight: 500;
+    line-height: 0.95;
+    color: var(--text-color);
+    letter-spacing: -4px;
+}
+
+.subpage-description {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.8vw;
+    font-weight: 400;
+    color: #444;
+    line-height: 1.45;
+    margin-top: 1vw;
+    max-width: 850px;
+}
+
+/* Subpage Projects Section */
+.subpage-projects-section {
+    width: 100%;
+    background-color: var(--bg-color);
+    padding: 2vw 4vw 8vw 4vw;
+}
+
+/* Standalone Services Section */
+.subpage-services-list-section {
+    width: 100%;
+    background-color: var(--bg-color);
+    padding: 2vw 4vw 8vw 4vw;
+}
+
+.services-list-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 2vw;
+}
+
+.service-detail-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8vw 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    width: 100%;
+    gap: 6vw;
+}
+
+.service-detail-block:last-child {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.service-detail-left {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2vw;
+}
+
+.service-accent-number {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    color: var(--brand-color);
+}
+
+.service-detail-block[data-accent="emerald"] .service-accent-number {
+    color: #10b981;
+}
+.service-detail-block[data-accent="blue"] .service-accent-number {
+    color: #2563eb;
+}
+
+.service-detail-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 4.8vw;
+    font-weight: 600;
+    line-height: 1.05;
+    text-transform: uppercase;
+    color: var(--text-color);
+}
+
+.service-detail-desc {
+    font-size: 1.15vw;
+    line-height: 1.6;
+    color: #444;
+    font-weight: 400;
+}
+
+.service-tech-stack-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vw;
+    margin-top: 1vw;
+    width: 100%;
+}
+
+.stack-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    color: #666;
+}
+
+.service-detail-right {
+    width: 46%;
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+}
+
+.capabilities-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    color: #666;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding-bottom: 0.8vw;
+}
+
+.capabilities-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5vw;
+}
+
+.capabilities-list li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6vw;
+}
+
+.capabilities-list h4 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.8vw;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-color);
+}
+
+.capabilities-list p {
+    font-size: 1.1vw;
+    line-height: 1.5;
+    color: #555;
+    font-weight: 300;
+}
+
+/* Standalone About Section */
+.about-hero-section {
+    width: 100%;
+    min-height: 55vh;
+    padding: 12vw 4vw 4vw 4vw;
+    background-color: var(--bg-color);
+    display: flex;
+    align-items: flex-end;
+}
+
+.about-hero-content {
+    max-width: 950px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vw;
+}
+
+.about-hero-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 8vw;
+    font-weight: 500;
+    line-height: 0.95;
+    color: var(--text-color);
+    letter-spacing: -4px;
+}
+
+.about-hero-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.8vw;
+    font-weight: 400;
+    color: #333;
+    line-height: 1.5;
+    margin-top: 1vw;
+}
+
+.about-pillars-section {
+    width: 100%;
+    background-color: var(--bg-color);
+    padding: 6vw 4vw;
+    display: flex;
+    flex-direction: column;
+    gap: 4vw;
+}
+
+.pillars-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 1.5vw;
+}
+
+.section-kicker {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    color: #666;
+}
+
+.section-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 3.5vw;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-top: 0.5vw;
+}
+
+.pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5vw;
+}
+
+.pillar-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 20px;
+    padding: 3vw 2.5vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vw;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.25, 1), border-color 0.5s ease;
+}
+
+.pillar-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--brand-color);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
+}
+
+.pillar-num {
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    color: var(--brand-color);
+}
+
+.pillar-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2.2vw;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.pillar-desc {
+    font-size: 1.05vw;
+    line-height: 1.5;
+    color: #555;
+    font-weight: 300;
+}
+
+.about-process-section {
+    width: 100%;
+    background-color: var(--bg-color);
+    padding: 6vw 4vw;
+    display: flex;
+    flex-direction: column;
+    gap: 4vw;
+}
+
+.process-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 1.5vw;
+}
+
+.process-timeline {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.process-stage-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 5vw 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    width: 100%;
+    gap: 6vw;
+}
+
+.process-stage-item:last-child {
+    border-bottom: none;
+}
+
+.stage-left {
+    width: 25%;
+}
+
+.stage-tag {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.8vw;
+    font-weight: 700;
+    color: #111;
+    border: 2px solid #000;
+    padding: 0.8vw 2vw;
+    border-radius: 50px;
+    display: inline-block;
+}
+
+.stage-right {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+}
+
+.stage-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2.8vw;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.stage-desc {
+    font-size: 1.15vw;
+    line-height: 1.6;
+    color: #555;
+    font-weight: 300;
+}
+
+.about-cta-section {
+    width: 100%;
+    background-color: var(--bg-color);
+    padding: 6vw 4vw 8vw 4vw;
+}
+
+.about-cta-card {
+    background-color: #1a1b1e;
+    color: #ffffff;
+    border-radius: 32px;
+    padding: 6vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2vw;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.cta-eyebrow {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    color: #8b5cf6;
+}
+
+.cta-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 3.8vw;
+    font-weight: 600;
+    text-transform: uppercase;
+    max-width: 800px;
+    line-height: 1.1;
+}
+
+.cta-desc {
+    font-size: 1.15vw;
+    line-height: 1.6;
+    color: #bbb;
+    max-width: 650px;
+    font-weight: 300;
+}
+
+.cta-btn-wrapper {
+    margin-top: 1vw;
+}
+
+.cta-btn-wrapper .start-btn {
+    background-color: #ffffff;
+    color: #111111;
+    text-decoration: none;
+}
+
+.cta-btn-wrapper .start-btn .dot {
+    background-color: #111111;
+}
+
+.cta-btn-wrapper .start-btn:hover {
+    background-color: var(--brand-color);
+    color: #ffffff;
+}
+
+.cta-btn-wrapper .start-btn:hover .dot {
+    background-color: #ffffff;
+}
+
+/* Standalone Contact Section */
+.subpage-contact-grid-section {
+    width: 100%;
+    background-color: var(--bg-color);
+    padding: 2vw 4vw 8vw 4vw;
+}
+
+/* Active Nav Links styling */
+#nav .links a.active {
+    color: var(--brand-color) !important;
+}
+
+#nav .nav-right .contact-btn.active {
+    background-color: var(--brand-color) !important;
+    color: #ffffff !important;
+}
+
+/* Locomotive scroll adjustment for header padding */
+.subpage-header-section[data-scroll] {
+    will-change: transform;
+}
+
+/* Responsive Adaptive Layouts for Mobile subpages */
+@media (max-width: 768px) {
+    .subpage-header-section {
+        min-height: 40vh;
+        padding: 30vw 4vw 6vw 4vw;
+    }
+    .subpage-title {
+        font-size: 12vw;
+        letter-spacing: -2px;
+    }
+    .subpage-description {
+        font-size: 1.1rem;
+    }
+    .service-detail-block {
+        flex-direction: column;
+        gap: 4vh;
+        padding: 10vw 0;
+    }
+    .service-detail-left,
+    .service-detail-right {
+        width: 100%;
+    }
+    .service-detail-title {
+        font-size: 9vw;
+    }
+    .service-detail-desc {
+        font-size: 1rem;
+    }
+    .capabilities-list h4 {
+        font-size: 1.3rem;
+    }
+    .capabilities-list p {
+        font-size: 0.95rem;
+    }
+    .about-hero-section {
+        min-height: 40vh;
+        padding: 30vw 4vw 6vw 4vw;
+    }
+    .about-hero-title {
+        font-size: 12vw;
+        letter-spacing: -2px;
+    }
+    .about-hero-desc {
+        font-size: 1.1rem;
+    }
+    .pillars-grid {
+        grid-template-columns: 1fr;
+        gap: 6vw;
+    }
+    .pillar-card {
+        padding: 6vw;
+    }
+    .pillar-title {
+        font-size: 1.6rem;
+    }
+    .pillar-desc {
+        font-size: 0.95rem;
+    }
+    .process-stage-item {
+        flex-direction: column;
+        gap: 4vw;
+        padding: 8vw 0;
+    }
+    .stage-left,
+    .stage-right {
+        width: 100%;
+    }
+    .stage-tag {
+        font-size: 1.1rem;
+        padding: 2vw 5vw;
+    }
+    .stage-title {
+        font-size: 1.5rem;
+    }
+    .stage-desc {
+        font-size: 0.95rem;
+    }
+    .cta-title {
+        font-size: 7vw;
+    }
+    .cta-desc {
+        font-size: 1rem;
+    }
+    .about-cta-card {
+        padding: 10vw 6vw;
+        border-radius: 24px;
     }
 }

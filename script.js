@@ -127,6 +127,7 @@ gsap.to(".marque-text h1", {
 // --- Preloader Typing Effect ---
 function initPreloader() {
     const typewriterElement = document.getElementById("typewriter");
+    if (!typewriterElement) return;
     
     // Hide everything else initially
     gsap.set(["#nav", ".hero-description", ".hero-cta", "#hero-3d-canvas-container", "#marquee", "#about", "#why-barter", "#barter-services", "#projects", "#ready", "#contact", "#footer-wrapper"], { opacity: 0, y: 20 });
