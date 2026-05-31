@@ -2993,4 +2993,168 @@ body {
         padding: 10vw 6vw;
         border-radius: 24px;
     }
+
+    /* Mobile overrides for new service sections */
+    .why-grid {
+        grid-template-columns: 1fr !important;
+        gap: 6vw !important;
+    }
+    .why-card {
+        padding: 6vw !important;
+    }
+    .why-card-title {
+        font-size: 1.6rem !important;
+    }
+    .why-card-desc {
+        font-size: 0.95rem !important;
+    }
+    
+    .ecosystem-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 4vw !important;
+    }
+    .eco-tile {
+        padding: 4vw !important;
+        gap: 3vw !important;
+    }
+    .eco-tile i {
+        font-size: 1.8rem !important;
+    }
+    .eco-tile span {
+        font-size: 0.95rem !important;
+    }
+    .ecosystem-desc {
+        font-size: 1rem !important;
+    }
+}
+
+/* ==========================================================================
+   NEW SERVICE PAGE EXTENSION SECTIONS (DESKTOP STYLES)
+   ========================================================================== */
+
+/* Services Why Section */
+.services-why-section {
+    width: 100%;
+    background-color: var(--bg-color);
+    padding: 6vw 4vw;
+    display: flex;
+    flex-direction: column;
+    gap: 4vw;
+}
+
+.why-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 1.5vw;
+}
+
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5vw;
+}
+
+.why-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 20px;
+    padding: 3vw 2.5vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vw;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.25, 1), border-color 0.5s ease;
+}
+
+.why-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--brand-color);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
+}
+
+.why-card-num {
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    color: var(--brand-color);
+}
+
+.why-card-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2.2vw;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.why-card-desc {
+    font-size: 1.05vw;
+    line-height: 1.5;
+    color: #555;
+    font-weight: 300;
+}
+
+/* Tech Integration Ecosystem Section */
+.services-ecosystem-section {
+    width: 100%;
+    background-color: var(--bg-color);
+    padding: 6vw 4vw 8vw 4vw;
+    display: flex;
+    flex-direction: column;
+    gap: 4vw;
+}
+
+.ecosystem-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 1.5vw;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vw;
+}
+
+.ecosystem-desc {
+    font-size: 1.3vw;
+    color: #555;
+    font-weight: 300;
+}
+
+.ecosystem-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.8vw;
+}
+
+.eco-tile {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    padding: 2vw;
+    display: flex;
+    align-items: center;
+    gap: 1.2vw;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.01);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.25, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.eco-tile i {
+    font-size: 2.4vw;
+    color: var(--brand-color);
+    transition: transform 0.4s ease;
+}
+
+.eco-tile span {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.3vw;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--text-color);
+}
+
+.eco-tile:hover {
+    transform: translateY(-5px);
+    border-color: var(--brand-color);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+}
+
+.eco-tile:hover i {
+    transform: rotate(15deg) scale(1.1);
 }
